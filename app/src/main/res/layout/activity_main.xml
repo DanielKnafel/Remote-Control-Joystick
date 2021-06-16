@@ -38,7 +38,7 @@
             android:rotation="270"
             app:layout_constraintRight_toLeftOf="@+id/joystick"
             app:layout_constraintBottom_toBottomOf="@+id/joystick"/>
-        <com.example.remotecontroljoystick.Joystick
+        <com.example.remotecontroljoystick.view.JoystickView
             android:id="@+id/joystick"
             android:layout_width="250dp"
             android:layout_height="250dp"
