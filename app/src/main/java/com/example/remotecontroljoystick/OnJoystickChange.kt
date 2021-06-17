@@ -1,5 +1,5 @@
 package com.example.remotecontroljoystick
 
-interface OnJoystickChange {
-    fun invoke(aileron : Float, Elevator : Float) : Void
+fun interface OnJoystickChange {
+    fun invoke(aileron : Float, elevator : Float)
 }

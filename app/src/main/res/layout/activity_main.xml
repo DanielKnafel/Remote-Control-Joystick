@@ -33,11 +33,13 @@
             android:id="@+id/throttleSeekbar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:max="1"
-            android:min="-1"
+            android:max="100"
+            android:min="-100"
             android:rotation="270"
             app:layout_constraintRight_toLeftOf="@+id/joystick"
-            app:layout_constraintBottom_toBottomOf="@+id/joystick"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
         <com.example.remotecontroljoystick.view.JoystickView
             android:id="@+id/joystick"
             android:layout_width="250dp"
@@ -48,7 +50,7 @@
             android:id="@+id/rudderSeekbar"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:max="1"
+            android:max="100"
             android:min="0"
             app:layout_constraintTop_toBottomOf="@+id/joystick"
             app:layout_constraintRight_toRightOf="@+id/joystick"/>
