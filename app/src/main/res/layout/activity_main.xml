@@ -24,7 +24,8 @@
         android:id="@+id/connectButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Connect"/>
+        android:text="Connect"
+        android:onClick="onConnectClick"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

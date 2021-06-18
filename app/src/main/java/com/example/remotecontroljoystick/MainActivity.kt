@@ -2,9 +2,14 @@ package com.example.remotecontroljoystick
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import android.widget.SeekBar
 import com.example.remotecontroljoystick.view.JoystickView
 import com.example.remotecontroljoystick.viewModel.JoystickViewModel
+import java.io.PrintWriter
+import java.net.Socket
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
     private val vm = JoystickViewModel()
@@ -48,5 +53,12 @@ class MainActivity : AppCompatActivity() {
                 ;
             }
         })
+    }
+    fun onConnectClick(view : View) {
+        val ip : EditText = findViewById(R.id.ipEditText)
+        val port : EditText = findViewById(R.id.portEditText)
+//        println(ip.text.toString())
+//        println(port.text.toString().toInt())
+        vm.startClientViewModel(ip.text.toString(), port.text.toString().toInt())
     }
 }
