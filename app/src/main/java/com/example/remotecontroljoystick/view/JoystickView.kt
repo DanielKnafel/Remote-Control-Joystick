@@ -20,10 +20,11 @@ class JoystickView @JvmOverloads constructor(
     // Radius of the joystick
     private var outerCenterX = 0.0f
     private var outerCenterY = 0.0f
+    private var outerRadius = 0.0f
     private var innerCenterX = 0.0f
     private var innerCenterY = 0.0f
     private var innerRadius = 0.0f
-    private var outerRadius = 0.0f
+    // event listener for joystick changes
     lateinit var onChange : OnJoystickChange
 
     init {
@@ -47,7 +48,7 @@ class JoystickView @JvmOverloads constructor(
             onChange.invoke(ailerone, elivator)
             true
         })
-        this.setOnTouchListener(listener)
+        setOnTouchListener(listener)
     }
 
     private fun calculateNewInnerCenter(newX : Float, newY : Float) {
@@ -99,7 +100,7 @@ class JoystickView @JvmOverloads constructor(
         innerCenterY = outerCenterY
         // Calculate the radius from the smaller of the width and height.
         outerRadius = (min(width, height) / 3.0 * 0.8).toFloat()
-        innerRadius = outerRadius / 2;
+        innerRadius = outerRadius / 2
     }
 
     private fun drawJoystick(canvas : Canvas) {

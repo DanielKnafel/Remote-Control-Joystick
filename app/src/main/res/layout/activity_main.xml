@@ -13,20 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="IP"/>
+        android:hint="@string/ip"/>
     <EditText
         android:id="@+id/portEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="port"/>
+        android:hint="@string/port"/>
     <Button
         android:id="@+id/connectButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Connect"
+        android:text="@string/connect"
         android:onClick="onConnectClick"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -35,12 +34,19 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:max="100"
-            android:min="-100"
+            android:min="0"
             android:rotation="270"
             app:layout_constraintRight_toLeftOf="@+id/joystick"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Throttle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/rudderSeekbar" />
         <com.example.remotecontroljoystick.view.JoystickView
             android:id="@+id/joystick"
             android:layout_width="250dp"
@@ -52,10 +58,16 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:max="100"
-            android:min="0"
+            android:min="-100"
             app:layout_constraintTop_toBottomOf="@+id/joystick"
             app:layout_constraintRight_toRightOf="@+id/joystick"/>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rudder"
+            app:layout_constraintTop_toBottomOf="@+id/rudderSeekbar"
+            app:layout_constraintLeft_toRightOf="@+id/throttleSeekbar"
+            app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
