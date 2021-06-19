@@ -2,12 +2,10 @@ package com.example.remotecontroljoystick.view
 
 import android.content.Context
 import android.graphics.*
-import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import androidx.annotation.RequiresApi
-import com.example.remotecontroljoystick.OnJoystickChange
+import com.example.remotecontroljoystick.utilities.OnJoystickChange
 import java.lang.Integer.min
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -43,7 +41,7 @@ class JoystickView @JvmOverloads constructor(
             invalidate()
             // calculate proportional size on ailerone and elivator
             val ailerone =  (innerCenterX - outerCenterX) / outerRadius
-            val elivator = (innerCenterY - outerCenterY) / outerRadius
+            val elivator = -(innerCenterY - outerCenterY) / outerRadius
             // invoke property changed callback
             onChange.invoke(ailerone, elivator)
             true
@@ -92,7 +90,6 @@ class JoystickView @JvmOverloads constructor(
         typeface = Typeface.create( "", Typeface.BOLD)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
         outerCenterX = (width / 2).toFloat()
         outerCenterY = (height / 2).toFloat()
