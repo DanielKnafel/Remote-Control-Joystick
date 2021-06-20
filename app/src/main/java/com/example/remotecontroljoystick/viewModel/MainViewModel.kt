@@ -9,7 +9,6 @@ class MainViewModel : ViewModel() {
 
     private var _aileron: Float = 0.0f
     private var _elevator: Float = 0.0f
-
     private var model = Model()
 
     fun startClientViewModel(ip: String, port: Int) {

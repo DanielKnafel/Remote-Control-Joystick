@@ -15,10 +15,11 @@ class JoystickView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
     ) : View(context, attrs, defStyleAttr) {
-    // Radius of the joystick
+    // fixed containing circle
     private var outerCenterX = 0.0f
     private var outerCenterY = 0.0f
     private var outerRadius = 0.0f
+    // moving inner circle
     private var innerCenterX = 0.0f
     private var innerCenterY = 0.0f
     private var innerRadius = 0.0f
@@ -26,9 +27,10 @@ class JoystickView @JvmOverloads constructor(
     lateinit var onChange : OnJoystickChange
 
     init {
+        // define event listener for touches
         val listener = OnTouchListener(function = { view, motionEvent ->
             view.performClick()
-            // user drags
+            // user drags inner circle
             if (motionEvent.action == MotionEvent.ACTION_MOVE) {
                 calculateNewInnerCenter(motionEvent.x, motionEvent.y)
             }
@@ -100,16 +102,11 @@ class JoystickView @JvmOverloads constructor(
         innerRadius = outerRadius / 2
     }
 
-    private fun drawJoystick(canvas : Canvas) {
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
         // draw outer circle
         canvas.drawCircle(outerCenterX, outerCenterY, outerRadius, outerPaint)
         // draw inner circle
         canvas.drawCircle(innerCenterX, innerCenterY, innerRadius, innerPaint)
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        // Draw the joystick
-        drawJoystick(canvas)
     }
 }
