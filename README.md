@@ -3,8 +3,9 @@
 In this project we developed an android app that controls the FlightGear simulator application, as a remote.
 
 ## Video link
-https://www.youtube.com/watch?v=MGTpONC_lAU
-
+https://www.youtube.com/watch?v=gvifnI0PSjM
+## Presentation link
+https://1drv.ms/p/s!AjmFOzCmeat1qTTKVpNITMDPkWnf
 ## Explanation of folders and main files structure
 Under app/src/main/java/com/example/remotecontroljoystick folder:
 *View* - JoystickView - the view of the joystick.
