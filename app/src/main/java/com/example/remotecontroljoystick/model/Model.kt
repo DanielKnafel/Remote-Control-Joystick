@@ -2,8 +2,6 @@ package com.example.remotecontroljoystick.model
 
 import java.io.PrintWriter
 import java.net.Socket
-import java.util.concurrent.BlockingQueue
-import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 
 class Model {
@@ -22,11 +20,13 @@ class Model {
         }.start()
     }
 
-    private fun stopClient() {
+    fun stopClient() {
         if (!stopAdding) {
-            printWriter.close()
-            client.close()
-            addJobToQueue(Runnable { stopTaking = true; })
+            addJobToQueue(Runnable {
+                printWriter.close()
+                client.close()
+                stopTaking = true
+            })
             // prevent more jobs from being added
             stopAdding = true
         }
@@ -35,17 +35,26 @@ class Model {
     private fun addJobToQueue(job : Runnable) {
         if (!stopAdding)
             dispatchQueue.put(job)
-        else
-            throw DispatchQueueWasStoppedException()
     }
 
-    fun startClient(ip: String, port: Int) {
-        if (!this::client.isInitialized) {
-            addJobToQueue(Runnable {
+    fun startClient(ip: String, port: Int) : Boolean {
+        // connect to the server
+        val t = Thread(Runnable {
+            try {
+                println("$ip:$port")
                 client = Socket(ip, port)
                 printWriter = PrintWriter(client.getOutputStream())
-            })
-        }
+            } catch (e: Exception) {
+            }
+        })
+        t.start()
+        //  await connection to finish
+        t.join()
+
+        // check if connection succeeded
+        if (this::client.isInitialized && client.isConnected)
+            return true
+        return false
     }
 
     fun sendCommand(command: String) {
@@ -55,10 +64,5 @@ class Model {
                 printWriter.flush()
             })
         }
-        else
-            throw ClientNotStartedException()
     }
 }
-
-class DispatchQueueWasStoppedException : Exception()
-class ClientNotStartedException : Exception()

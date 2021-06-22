@@ -3,6 +3,7 @@ package com.example.remotecontroljoystick.viewModel
 import android.widget.SeekBar
 import androidx.lifecycle.ViewModel
 import com.example.remotecontroljoystick.model.Model
+import java.lang.Exception
 import kotlin.properties.Delegates
 
 class MainViewModel : ViewModel() {
@@ -11,8 +12,8 @@ class MainViewModel : ViewModel() {
     private var _elevator: Float = 0.0f
     private var model = Model()
 
-    fun startClientViewModel(ip: String, port: Int) {
-        model.startClient(ip, port)
+    fun startClientViewModel(ip: String, port: Int) : Boolean {
+        return model.startClient(ip, port)
     }
 
     fun onThrottleChanged (seekbar : SeekBar, progress : Int, fromUser : Boolean) {
@@ -21,7 +22,6 @@ class MainViewModel : ViewModel() {
     fun onRudderChanged (seekbar : SeekBar, progress : Int, fromUser : Boolean) {
         model.sendCommand("set /controls/flight/rudder ${progress/100f}\r\n")
     }
-
     // aileron changed callback
     var aileron: Float by Delegates.observable(_aileron) { _, _, new ->
         model.sendCommand("set /controls/flight/aileron $new\r\n")
