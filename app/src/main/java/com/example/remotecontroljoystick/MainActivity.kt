@@ -7,6 +7,7 @@ import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.remotecontroljoystick.databinding.ActivityMainBinding
 import com.example.remotecontroljoystick.utilities.OnJoystickChange
 import com.example.remotecontroljoystick.view.JoystickView
@@ -30,6 +31,12 @@ class MainActivity : AppCompatActivity() {
             vm.elevator = elevator
         }
         changeEnabledInLayout(false)
+        // a callback function to be run if connection to server was successful
+        vm.clientConnected.observe(this,
+            Observer {
+                if (it)
+                    changeEnabledInLayout(true)
+            })
     }
 
     private fun changeEnabledInLayout(state : Boolean) {
@@ -45,10 +52,8 @@ class MainActivity : AppCompatActivity() {
 
         try {
              port = portEditText.text.toString().toInt()
-        } catch (e : NumberFormatException) {
-        }
+        } catch (e : NumberFormatException) {}
 
-        if (vm.startClientViewModel(ipEditText.text.toString(), port))
-            changeEnabledInLayout(true)
+        vm.startClientViewModel(ipEditText.text.toString(), port)
     }
 }

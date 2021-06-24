@@ -1,10 +1,12 @@
 package com.example.remotecontroljoystick.model
 
+import com.example.remotecontroljoystick.viewModel.MainViewModel
 import java.io.PrintWriter
+import java.lang.Exception
 import java.net.Socket
 import java.util.concurrent.LinkedBlockingQueue
 
-class Model {
+class Model (private val vm: MainViewModel) {
     private lateinit var client : Socket
     private lateinit var printWriter : PrintWriter
     private var dispatchQueue = LinkedBlockingQueue<Runnable>()
@@ -37,24 +39,15 @@ class Model {
             dispatchQueue.put(job)
     }
 
-    fun startClient(ip: String, port: Int) : Boolean {
-        // connect to the server
-        val t = Thread(Runnable {
+    fun startClient(ip: String, port: Int) {
+        addJobToQueue(Runnable {
             try {
-                println("$ip:$port")
                 client = Socket(ip, port)
                 printWriter = PrintWriter(client.getOutputStream())
-            } catch (e: Exception) {
-            }
+                // update vieModel about successful connection
+                vm.clientConnected.postValue(true)
+            } catch (e : Exception) {}
         })
-        t.start()
-        //  await connection to finish
-        t.join()
-
-        // check if connection succeeded
-        if (this::client.isInitialized && client.isConnected)
-            return true
-        return false
     }
 
     fun sendCommand(command: String) {

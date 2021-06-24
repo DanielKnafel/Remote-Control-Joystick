@@ -1,6 +1,8 @@
 package com.example.remotecontroljoystick.viewModel
 
 import android.widget.SeekBar
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.remotecontroljoystick.model.Model
 import java.lang.Exception
@@ -10,12 +12,13 @@ class MainViewModel : ViewModel() {
 
     private var _aileron: Float = 0.0f
     private var _elevator: Float = 0.0f
-    private var model = Model()
+    private var model = Model(this)
 
-    fun startClientViewModel(ip: String, port: Int) : Boolean {
-        return model.startClient(ip, port)
+    val clientConnected = MutableLiveData<Boolean>()
+
+    fun startClientViewModel(ip: String, port: Int) {
+        model.startClient(ip, port)
     }
-
     fun onThrottleChanged (seekbar : SeekBar, progress : Int, fromUser : Boolean) {
         model.sendCommand("set /controls/engines/current-engine/throttle ${progress/100f}\r\n")
     }
