@@ -8,6 +8,7 @@ https://www.youtube.com/watch?v=gvifnI0PSjM
 https://1drv.ms/p/s!AjmFOzCmeat1qTTKVpNITMDPkWnf
 ## Explanation of folders and main files structure
 Under app/src/main/java/com/example/remotecontroljoystick folder:
+
 *View* - JoystickView - the view of the joystick.
 
 *MainActivity* - The main View of the project.
